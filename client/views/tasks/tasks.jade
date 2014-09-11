@@ -1,0 +1,36 @@
+h3 Tasks
+.row
+  .col-xs-3
+    form(novalidate, name='taskForm', role='form')
+      .form-group
+        label(for='name') Name
+        input.form-control#task(name='name', type='text', ng-model='task.name', ng-minlength='3', required, autofocus)
+      .form-group
+        label(for='due') Due
+        input.form-control#task(name='due', type='date', ng-model='task.due', required)
+      .form-group
+        button.btn.btn-success(ng-show='taskForm.$valid', ng-click='add()') Add Task
+  .col-xs-9
+
+.row
+  .col-xs-3
+    .panel.panel-default
+      .panel-body
+        .radio
+          label
+            input(name='sort', type='radio', ng-model='sort', value='name')
+            span Ascending
+        .radio
+          label
+            input(name='sort', type='radio', ng-model='sort', value='-name')
+            span Descending
+
+      table.table.table-striped.table-hover.table-bordered
+        thead
+          tr
+            th Name
+            th Due
+        tbody
+          tr(ng-repeat='t in tasks | orderBy:sort', ng-style='{"background-color":blue}')
+            td {{t.name}}
+            td {{t.due | date}}
